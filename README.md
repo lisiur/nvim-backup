@@ -1,3 +1,5 @@
+fork from https://github.com/ayamir/nvimdots
+
 # Introduction
 
 ![Dashboard](https://raw.githubusercontent.com/ayamir/blog-imgs/main/dashboard.png)

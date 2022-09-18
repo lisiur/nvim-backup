@@ -1,4 +1,5 @@
 local global = require("core.global")
+local user_config = require("config")
 local vim = vim
 
 -- Create cache dir and subs dir
@@ -53,7 +54,7 @@ local leader_map = function()
 end
 
 local neovide_config = function()
-	vim.cmd([[set guifont=JetBrainsMono\ Nerd\ Font:h15]])
+	vim.cmd("set guifont="..user_config.neovide_font)
 	vim.g.neovide_refresh_rate = 120
 	vim.g.neovide_cursor_vfx_mode = "railgun"
 	vim.g.neovide_no_idle = true
@@ -108,7 +109,7 @@ local load_core = function()
 	pack.load_compile()
 
 	-- vim.cmd([[set background=light]])
-	vim.cmd([[colorscheme catppuccin]])
+	vim.cmd("colorscheme "..user_config.colorscheme)
 end
 
 load_core()

@@ -1,4 +1,5 @@
 local global = require("core.global")
+local user_config = require("config")
 
 local function load_options()
 	local global_local = {
@@ -108,13 +109,10 @@ local function load_options()
 			paste = { ["+"] = "pbpaste", ["*"] = "pbpaste" },
 			cache_enabled = 0,
 		}
-		vim.g.python_host_prog = "/usr/bin/python"
-		vim.g.python3_host_prog = "/usr/local/bin/python3"
-	else
-		vim.g.python_host_prog = "/usr/bin/python"
-		vim.g.python3_host_prog = "python"
 	end
 
+	vim.g.python_host_prog = user_config.python_host_prog
+	vim.g.python3_host_prog = user_config.python3_host_prog
 	vim.g.encoding = "UTF-8"
 	vim.g.loaded = 1
 	vim.g.loaded_netrwPlugin = 1

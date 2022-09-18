@@ -7,23 +7,23 @@ function config.nvim_treesitter()
 
 	require("nvim-treesitter.configs").setup({
 		ensure_installed = {
-			"bash",
-			"c",
-			"cpp",
-			"lua",
+			-- "bash",
+			-- "c",
+			-- "cpp",
+			-- "lua",
 			-- "go",
 			-- "gomod",
-			"json",
-			"yaml",
+			-- "json",
+			-- "yaml",
 			-- "latex",
 			-- "make",
-			"python",
-			"rust",
-			"html",
-			"javascript",
-			"typescript",
-			"vue",
-			"css",
+			-- "python",
+			-- "rust",
+			-- "html",
+			-- "javascript",
+			-- "typescript",
+			-- "vue",
+			-- "css",
 		},
 		highlight = { enable = true, disable = { "vim" } },
 		textobjects = {
@@ -66,7 +66,7 @@ function config.nvim_treesitter()
 		matchup = { enable = true },
 	})
 	require("nvim-treesitter.install").prefer_git = true
-	require("nvim-treesitter.install").compilers = { "zig" }
+	require("nvim-treesitter.install").compilers = { "clang" }
 	local parsers = require("nvim-treesitter.parsers").get_parser_configs()
 	for _, p in pairs(parsers) do
 		p.install_info.url = p.install_info.url:gsub("https://github.com/", "git@github.com:")
@@ -204,7 +204,7 @@ function config.toggleterm()
 		persist_size = true,
 		direction = "horizontal",
 		close_on_exit = true, -- close the terminal window when the process exits
-		shell = vim.o.shell, -- change the default shell
+		shell = "nu.exe", -- change the default shell
 	})
 end
 
@@ -388,30 +388,12 @@ function config.dap()
 	}
 end
 
-function config.specs()
-	require("specs").setup({
-		show_jumps = true,
-		min_jump = 10,
-		popup = {
-			delay_ms = 0, -- delay before popup displays
-			inc_ms = 10, -- time increments used for fade/resize effects
-			blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
-			width = 10,
-			winhl = "PMenu",
-			fader = require("specs").pulse_fader,
-			resizer = require("specs").shrink_resizer,
-		},
-		ignore_filetypes = {},
-		ignore_buftypes = { nofile = true },
-	})
-end
-
 function config.tabout()
 	require("tabout").setup({
 		tabkey = "<A-l>",
 		backwards_tabkey = "<A-h>",
-		ignore_beginning = false,
-		act_as_tab = true,
+		ignore_beginning = true,
+		act_as_tab = false,
 		enable_backward = true,
 		completion = true,
 		tabouts = {
@@ -421,6 +403,7 @@ function config.tabout()
 			{ open = "(", close = ")" },
 			{ open = "[", close = "]" },
 			{ open = "{", close = "}" },
+			{ open = "<", close = ">" },
 		},
 		exclude = {},
 	})
@@ -448,23 +431,11 @@ function config.better_escape()
 		mapping = { "jk", "jj" }, -- a table with mappings to use
 		timeout = vim.o.timeoutlen, -- the time in which the keys must be hit in ms. Use option timeoutlen by default
 		clear_empty_lines = false, -- clear line after escaping if there is only whitespace
-		keys = "<Esc>", -- keys used for escaping, if it is a function will use the result everytime
+		-- keys = "<Esc>", -- keys used for escaping, if it is a function will use the result everytime
 		-- example(recommended)
-		-- keys = function()
-		--   return vim.api.nvim_win_get_cursor(0)[2] > 1 and '<esc>l' or '<esc>'
-		-- end,
-	})
-end
-
-function config.accelerated_jk()
-	require("accelerated-jk").setup({
-		mode = "time_driven",
-		enable_deceleration = false,
-		acceleration_motions = {},
-		acceleration_limit = 150,
-		acceleration_table = { 7, 12, 17, 21, 24, 26, 28, 30 },
-		-- when 'enable_deceleration = true', 'deceleration_table = { {200, 3}, {300, 7}, {450, 11}, {600, 15}, {750, 21}, {900, 9999} }'
-		deceleration_table = { { 150, 9999 } },
+		keys = function()
+		  return vim.api.nvim_win_get_cursor(0)[2] > 1 and '<esc>l' or '<esc>'
+		end,
 	})
 end
 

@@ -21,7 +21,6 @@ function config.lspsaga()
 
 	local function get_palette()
 		if vim.g.colors_name == "catppuccin" then
-			-- If the colorscheme is catppuccin then use the palette.
 			return require("catppuccin.palettes").get_palette()
 		else
 			-- Default behavior: return lspsaga's default palette.

@@ -39,19 +39,12 @@ local def_map = {
 
 	["n|s="] = map_cmd("<C-w>="):with_noremap(), -- 所有窗口均分大小
 
-	---------
-	-- 文件
-	---------
-	["n|<leader>f"] = map_cmd(":Telescope find_files<CR>"):with_noremap(),
-	["n|<leader>g"] = map_cmd(":Telescope live_grep<CR>"):with_noremap(),
-
 	-----------
 	-- 缓冲区
 	-----------
 	["n|<leader>="] = map_cmd("gg=G"):with_noremap(), -- 格式化
 
-	["n|<Tab>"] = map_cr("normal zc"):with_noremap():with_silent(),
-	["n|<S-Tab>"] = map_cr("normal zo"):with_noremap():with_silent(),
+	["n|<Tab>"] = map_cr("normal za"):with_noremap():with_silent(),
 	["n|<C-x>k"] = map_cr("bdelete"):with_noremap():with_silent(),
 	["n|<C-s>"] = map_cu("write"):with_noremap(),
 	["n|Y"] = map_cmd("y$"),

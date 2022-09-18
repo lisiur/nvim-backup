@@ -43,8 +43,6 @@ editor["andymass/vim-matchup"] = {
 	after = "nvim-treesitter",
 	config = conf.matchup,
 }
-editor["rainbowhxch/accelerated-jk.nvim"] = { opt = true, event = "BufWinEnter", config = conf.accelerated_jk }
-editor["hrsh7th/vim-eft"] = { opt = true, event = "BufReadPost" }
 editor["romainl/vim-cool"] = {
 	opt = true,
 	event = { "CursorMoved", "InsertEnter" },
@@ -55,11 +53,11 @@ editor["phaazon/hop.nvim"] = {
 	event = "BufReadPost",
 	config = conf.hop,
 }
-editor["karb94/neoscroll.nvim"] = {
-	opt = true,
-	event = "BufReadPost",
-	config = conf.neoscroll,
-}
+-- editor["karb94/neoscroll.nvim"] = {
+-- 	opt = true,
+-- 	event = "BufReadPost",
+-- 	config = conf.neoscroll,
+-- }
 editor["akinsho/toggleterm.nvim"] = {
 	opt = true,
 	event = "UIEnter",
@@ -106,21 +104,12 @@ editor["famiu/bufdelete.nvim"] = {
 	opt = true,
 	cmd = { "Bdelete", "Bwipeout", "Bdelete!", "Bwipeout!" },
 }
-editor["edluffy/specs.nvim"] = {
-	opt = true,
-	event = "CursorMoved",
-	config = conf.specs,
-}
 editor["abecodes/tabout.nvim"] = {
 	opt = true,
 	event = "InsertEnter",
 	wants = "nvim-treesitter",
 	after = "nvim-cmp",
 	config = conf.tabout,
-}
-editor["sindrets/diffview.nvim"] = {
-	opt = true,
-	cmd = { "DiffviewOpen" },
 }
 editor["luukvbaal/stabilize.nvim"] = {
 	opt = true,
