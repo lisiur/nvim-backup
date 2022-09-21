@@ -5,6 +5,7 @@ ui["kyazdani42/nvim-web-devicons"] = { opt = false }
 ui["catppuccin/nvim"] = {
 	opt = false,
 	as = "catppuccin",
+    run = ":CatppuccinCompile",
 	config = conf.catppuccin,
 }
 ui["rcarriga/nvim-notify"] = {

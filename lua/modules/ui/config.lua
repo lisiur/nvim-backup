@@ -57,29 +57,29 @@ end
 
 function config.catppuccin()
     -- Create an autocmd User PackerCompileDone to update it every time packer is compiled
-    vim.api.nvim_create_augroup("_catppuccin", { clear = true })
-    vim.api.nvim_create_autocmd("User", {
-        group = "_catppuccin",
-        pattern = "PackerCompileDone",
-        callback = function()
-            require("catppuccin").compile()
-            vim.defer_fn(function()
-                vim.cmd "colorscheme catppuccin"
-            end, 0) -- Defered for live reloading
-        end
-    })
+    -- vim.api.nvim_create_augroup("_catppuccin", { clear = true })
+    -- vim.api.nvim_create_autocmd("User", {
+    --     group = "_catppuccin",
+    --     pattern = "PackerCompileDone",
+    --     callback = function()
+    --         require("catppuccin").compile()
+    --         vim.defer_fn(function()
+    --             vim.cmd "colorscheme catppuccin"
+    --         end, 0) -- Defered for live reloading
+    --     end
+    -- })
 
     -- vim.g.catppuccin_flavour = user_config.catppuccin_flavour -- Set flavour here
-    vim.g.catppuccin_flavour = "latte" -- Set flavour here
+    vim.g.catppuccin_flavour = "macchiato" -- Set flavour here
     -- vim.g.catppuccin_flavour = "mocha" -- Set flavour here
 
     require("catppuccin").setup({
         -- set inactive split or window or buffer bg darker
-        dim_inactive = {
-            enabled = true,
-            shade = "dark",
-            percentage = 0.05,
-        },
+        -- dim_inactive = {
+        --     enabled = true,
+        --     shade = "dark",
+        --     percentage = 0.05,
+        -- },
         term_colors = true,
         integrations = {
             hop = true,
@@ -289,28 +289,6 @@ function config.lualine()
     })
 end
 
-function config.nvim_gps()
-    require("nvim-gps").setup({
-        icons = {
-            ["class-name"] = " ", -- Classes and class-like objects
-            ["function-name"] = " ", -- Functions
-            ["method-name"] = " ", -- Methods (functions inside class-like objects)
-        },
-        languages = {
-            -- You can disable any language individually here
-            ["c"] = true,
-            ["cpp"] = true,
-            ["go"] = true,
-            ["java"] = true,
-            ["javascript"] = true,
-            ["lua"] = true,
-            ["python"] = true,
-            ["rust"] = true,
-        },
-        separator = " > ",
-    })
-end
-
 function config.nvim_navic()
     vim.g.navic_silence = true
 
@@ -351,13 +329,11 @@ function config.nvim_navic()
 end
 
 function config.nvim_tree()
-
     require("nvim-tree").setup({
         disable_netrw = true,
         hijack_cursor = true, -- Keeps the cursor on the first letter of the filename.
         hijack_netrw = true,
         renderer = {
-            -- root_folder_modifier = ":e",
             special_files = { "Cargo.toml", "Makerfile", "package.json", "README.md" },
             indent_markers = {
                 enable = true,
@@ -368,62 +344,37 @@ function config.nvim_tree()
                     none = "  ",
                 },
             },
+            highlight_git = true,
             icons = {
                 git_placement = "before", -- before / after / signcolumn
-                glyphs = {
-                    git = {
-                        unstaged = "*",
-                        staged = "$",
-                        renamed = "?",
-                        untracked = "+",
-                        deleted = "-",
-                        ignored = "~",
-                    }
-                }
             },
-        },
-        hijack_directories = {
-            enable = true,
-            auto_open = true,
-        },
-        filters = {
-            dotfiles = false,
-            custom = { ".DS_Store" },
-            exclude = {},
         },
         actions = {
-            use_system_clipboard = true,
             change_dir = {
-                enable = true,
-                global = false,
-            },
-            open_file = {
-                quit_on_open = false,
-                resize_window = false,
-                window_picker = {
-                    enable = true,
-                    exclude = {
-                        filetype = {"notify", "packer", "qf", "diff", "fugitive", "futitiveblame"},
-                        buftype = {"nofile", "terminal", "help"}
-                    },
-                },
-            },
-            remove_file = {
-                close_window = true,
-            },
+                enable = false,
+            }
         },
         on_attach = function(bufnr)
-            local function map_key(key, action)
-                local inject_node = require("nvim-tree.utils").inject_node
-                vim.keymap.set("n", key, inject_node(function(node)
-                    if node then
-                        action(node)
-                    end
-                end), { buffer = bufnr, noremap = true })
-            end
+            local inject_node = require("nvim-tree.utils").inject_node
+            local telescope_api = require("modules.tools.telescope")
 
-            local api = require("nvim-tree.api")
-            map_key("?", api.tree.toggle_help)
+            vim.keymap.set("n", "<leader>s", inject_node(function(node)
+                if node then
+                    telescope_api.search_under(node.absolute_path)
+                end
+            end), { buffer = bufnr, noremap = true })
+
+            vim.keymap.set("n", "<leader>f", inject_node(function(node)
+                if node then
+                    telescope_api.find_files_under(node.absolute_path)
+                end
+            end), { buffer = bufnr, noremap = true })
+
+            vim.keymap.set("n", "<leader>f", inject_node(function(node)
+                if node then
+                    telescope_api.find_files_under(node.absolute_path)
+                end
+            end), { buffer = bufnr, noremap = true })
         end
     })
 end

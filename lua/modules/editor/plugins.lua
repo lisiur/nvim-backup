@@ -115,7 +115,14 @@ editor["luukvbaal/stabilize.nvim"] = {
 	opt = true,
 	event = "BufReadPost",
 }
-
+editor["karb94/neoscroll.nvim"] = {
+    opt = false,
+    config = conf.neoscroll,
+}
+editor["kylechui/nvim-surround"] = {
+    opt = false,
+    config = conf.surround,
+}
 -- only for fcitx5 user who uses non-English language during coding
 -- editor["brglng/vim-im-select"] = {
 -- 	opt = true,

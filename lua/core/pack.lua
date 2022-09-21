@@ -1,10 +1,9 @@
 local fn, uv, api = vim.fn, vim.loop, vim.api
-local is_mac = require("core.global").is_mac
 local vim_path = require("core.global").vim_path
 local data_dir = require("core.global").data_dir
 local modules_dir = vim_path .. "/lua/modules"
 local packer_compiled = data_dir .. "lua/_compiled.lua"
-local bak_compiled = data_dir .. "lua/bak_compiled.lua"
+local bak_compiled = data_dir .. "lua/_compiled_backup.lua"
 local packer = nil
 
 local Packer = {}
@@ -36,30 +35,18 @@ function Packer:load_packer()
         api.nvim_command("packadd packer.nvim")
         packer = require("packer")
     end
-    if not is_mac then
-        packer.init({
-            compile_path = packer_compiled,
-            git = { clone_timeout = 60, default_url_format = "git@github.com:%s" },
-            disable_commands = true,
-            display = {
-                open_fn = function()
-                    return require("packer.util").float({ border = "none" })
-                end,
-            },
-        })
-    else
-        packer.init({
-            compile_path = packer_compiled,
-            git = { clone_timeout = 60, default_url_format = "git@github.com:%s" },
-            disable_commands = true,
-            max_jobs = 20,
-            display = {
-                open_fn = function()
-                    return require("packer.util").float({ border = "none" })
-                end,
-            },
-        })
-    end
+    packer.init({
+        -- If you want catppuccin setup function to actually reload without restarting nvim
+        auto_reload_compiled = true,
+        compile_path = packer_compiled,
+        git = { clone_timeout = 60, default_url_format = "git@github.com:%s" },
+        disable_commands = true,
+        display = {
+            open_fn = function()
+                return require("packer.util").float({ border = "none" })
+            end,
+        },
+    })
     packer.reset()
     local use = packer.use
     self:load_plugins()

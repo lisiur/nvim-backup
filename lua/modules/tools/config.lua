@@ -160,20 +160,31 @@ function config.which_key()
     require("which-key").setup({
         plugins = {
             presets = {
-                operators = false,
-                motions = false,
-                text_objects = false,
-                windows = false,
-                nav = false,
+                operators = true,
+                motions = true,
+                text_objects = true,
+                windows = true,
+                nav = true,
                 z = true,
                 g = true,
             },
         },
 
+        key_labels = {
+            ["<space>"] = "SPC",
+            ["<cr>"] = "RET",
+            ["<tab>"] = "TAB",
+        },
+
         icons = {
             breadcrumb = "»",
-            separator = "│",
+            separator = "➜",
             group = "+",
+        },
+
+        popup_mappings = {
+            scroll_down = '<c-d>', -- binding to scroll down inside the popup
+            scroll_up = '<c-u>', -- binding to scroll up inside the popup
         },
 
         window = {
@@ -196,11 +207,12 @@ call wilder#set_option('pipeline', [wilder#branch(
 	\ [wilder#check({_, x -> empty(x)}), wilder#history(), wilder#result({'draw': [{_, x -> ' ' . x}]})]
 	\ )])
 call wilder#set_option('renderer', wilder#renderer_mux({
-	\ ':': wilder#popupmenu_renderer({
+	\ ':': wilder#popupmenu_renderer(wilder#popupmenu_border_theme({
 		\ 'highlighter': wilder#lua_fzy_highlighter(),
 		\ 'left': [wilder#popupmenu_devicons()],
-		\ 'right': [' ', wilder#popupmenu_scrollbar()]
-		\ }),
+		\ 'right': [' ', wilder#popupmenu_scrollbar()],
+        \ 'border': 'rounded'
+		\ })),
 	\ '/': wilder#wildmenu_renderer({
 		\ 'highlighter': wilder#lua_fzy_highlighter(),
 		\ 'apply_incsearch_fix': v:true,

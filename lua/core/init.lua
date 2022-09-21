@@ -73,16 +73,12 @@ local load_core = function()
     createdir()
     disable_distribution_plugins()
     leader_map()
-
     pack.ensure_plugins()
     neovide_config()
-    -- check_conda()
-    -- clipboard_config()
 
     require("core.options")
-    require("core.mapping")
-    require("keymap")
-    require("core.event")
+    require("core.keymap")
+    -- require("core.event")
     pack.load_compile()
 
     -- vim.cmd([[set background=light]])
