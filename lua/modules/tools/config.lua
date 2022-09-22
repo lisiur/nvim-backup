@@ -31,7 +31,9 @@ function config.telescope()
     table.insert(vimgrep_arguments, "--glob")
     table.insert(vimgrep_arguments, "!.git/*")
 
-    require("telescope").setup({
+    local telescope = require('telescope')
+
+    telescope.setup({
         defaults = {
             initial_mode = "insert",
             prompt_prefix = "  ",
@@ -78,10 +80,10 @@ function config.telescope()
         },
     })
 
-    require("telescope").load_extension("fzf")
-    require("telescope").load_extension("project")
-    require("telescope").load_extension("zoxide")
-    require("telescope").load_extension("frecency")
+    telescope.load_extension("fzf")
+    telescope.load_extension("project")
+    telescope.load_extension("zoxide")
+    telescope.load_extension("frecency")
 end
 
 function config.trouble()
@@ -188,7 +190,7 @@ function config.which_key()
         },
 
         window = {
-            border = "none",
+            border = "single",
             position = "bottom",
             margin = { 1, 0, 1, 0 },
             padding = { 1, 1, 1, 1 },

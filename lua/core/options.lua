@@ -62,7 +62,7 @@ local function load_options()
 		foldlevelstart = 99,
 		ruler = true,
 		cursorline = true,
-		cursorcolumn = true,
+		-- cursorcolumn = true,
 		list = true,
 		showtabline = 2,
 		winwidth = 30,
@@ -111,12 +111,12 @@ local function load_options()
 		}
 	end
 
-	vim.g.python_host_prog = user_config.python_host_prog
-	vim.g.python3_host_prog = user_config.python3_host_prog
 	vim.g.encoding = "UTF-8"
 	vim.g.loaded = 1
 	vim.g.loaded_netrwPlugin = 1
-	vim.g.sqlite_clib_path = "C:\\Users\\lisiu\\.local\\bin\\sqlite3.dll"
+	vim.g.python_host_prog = user_config.python_host_prog
+	vim.g.python3_host_prog = user_config.python3_host_prog
+	vim.g.sqlite_clib_path = user_config.sqlite_clib_path
 	for name, value in pairs(global_local) do
 		vim.o[name] = value
 	end

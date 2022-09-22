@@ -55,9 +55,9 @@ end
 
 local neovide_config = function()
     vim.cmd("set guifont=" .. user_config.neovide_font)
-    vim.g.neovide_refresh_rate = 60
+    vim.g.neovide_refresh_rate = 30
     vim.g.neovide_cursor_vfx_mode = "railgun"
-    vim.g.neovide_no_idle = true
+    vim.g.neovide_no_idle = false
     vim.g.neovide_fullscreen = false
     vim.g.neovide_cursor_animation_length = 0.03
     vim.g.neovide_cursor_trail_length = 0.05
@@ -70,18 +70,32 @@ end
 
 local load_core = function()
     local pack = require("core.pack")
+
     createdir()
+
     disable_distribution_plugins()
+
+    require("core.autocmd")
+
+    -- 设置 leader key
     leader_map()
+
+    -- 确保 packer 已下载
     pack.ensure_plugins()
+
+    -- 配置 neovide
     neovide_config()
 
+    -- 配置 vim 选项
     require("core.options")
+
+    -- 配置 keymap
     require("core.keymap")
-    -- require("core.event")
+
+    -- 加载插件
     pack.load_compile()
 
-    -- vim.cmd([[set background=light]])
+    -- 设置主题色
     vim.cmd("colorscheme " .. user_config.colorscheme)
 end
 

@@ -56,19 +56,6 @@ function config.alpha()
 end
 
 function config.catppuccin()
-    -- Create an autocmd User PackerCompileDone to update it every time packer is compiled
-    -- vim.api.nvim_create_augroup("_catppuccin", { clear = true })
-    -- vim.api.nvim_create_autocmd("User", {
-    --     group = "_catppuccin",
-    --     pattern = "PackerCompileDone",
-    --     callback = function()
-    --         require("catppuccin").compile()
-    --         vim.defer_fn(function()
-    --             vim.cmd "colorscheme catppuccin"
-    --         end, 0) -- Defered for live reloading
-    --     end
-    -- })
-
     -- vim.g.catppuccin_flavour = user_config.catppuccin_flavour -- Set flavour here
     vim.g.catppuccin_flavour = "macchiato" -- Set flavour here
     -- vim.g.catppuccin_flavour = "mocha" -- Set flavour here
@@ -356,23 +343,23 @@ function config.nvim_tree()
         },
         on_attach = function(bufnr)
             local inject_node = require("nvim-tree.utils").inject_node
-            local telescope_api = require("modules.tools.telescope")
+            local telescope = require("modules.tools.telescope")
 
             vim.keymap.set("n", "<leader>s", inject_node(function(node)
                 if node then
-                    telescope_api.search_under(node.absolute_path)
+                    telescope.search_under(node.absolute_path)
                 end
             end), { buffer = bufnr, noremap = true })
 
             vim.keymap.set("n", "<leader>f", inject_node(function(node)
                 if node then
-                    telescope_api.find_files_under(node.absolute_path)
+                    telescope.find_files_under(node.absolute_path)
                 end
             end), { buffer = bufnr, noremap = true })
 
             vim.keymap.set("n", "<leader>f", inject_node(function(node)
                 if node then
-                    telescope_api.find_files_under(node.absolute_path)
+                    telescope.find_files_under(node.absolute_path)
                 end
             end), { buffer = bufnr, noremap = true })
         end

@@ -1,21 +1,12 @@
 local wk = require("which-key")
 
 wk.register({
-    ["<C-u>"] = { "9k" },
-    ["<C-d>"] = { "9j" },
-    ["<C-s>"] = { "<cmd>write<cr>" },
-    ["<Tab>"] = { "za" },
-    n = { "nzzzv" },
-    N = { "Nzzzv" },
-    H = { "^" },
-    L = { "$" },
-
     s = {
         name = "Window",
-        j = { "<cmd>sp<cr><c-w>k", "Split Window Down" },
-        l = { "<cmd>vsp<cr><c-w>h", "Split Window Right" },
-        k = { "<cmd>sp<cr>", "Split Window Up" },
-        h = { "<cmd>vsp<cr>", "Split Winodw Left" },
+        k = { "<cmd>sp<cr><c-w>k", "Split Window Down" },
+        h = { "<cmd>vsp<cr><c-w>h", "Split Window Right" },
+        j = { "<cmd>sp<cr>", "Split Window Up" },
+        l = { "<cmd>vsp<cr>", "Split Winodw Left" },
         c = { "<C-w>c", "Close Window" },
         o = { "<C-w>o", "Close Other Windows" },
         ["="] = {"<C-w>=", "Make All Window Same Size"},
@@ -78,32 +69,33 @@ wk.register({
    }
 })
 
-wk.register({
-        -- g = { "<esc><cmd>lua toggle_gitui()<cr>", "Toggle Gitui" },
-}, {mode = "t"})
+vim.keymap.set('n', 'H', '^', {desc = ''})
+vim.keymap.set('n', 'L', '$', {desc = ''})
+vim.keymap.set('n', '<C-s>', '<cmd>write<cr>', {desc = ''})
+vim.keymap.set('n', '<C-u>', '9k', {desc = ''})
+vim.keymap.set('n', '<C-d>', '9j', {desc = ''})
+vim.keymap.set('n', '<C-a>', 'ggVG', {desc = ''})
+vim.keymap.set('n', '<Tab>', 'za', {desc = ''})
+vim.keymap.set('n', 'n', 'nzzzv', {desc = ''})
+vim.keymap.set('n', 'N', 'Nzzzv', {desc = ''})
 
-wk.register({
-    ["<A-l>"] = {"<Plug>(TaboutMulti)", "Tabout Multi"},
-    ["<A-h>"] = {"<Plug>(TaboutBackMulti)", "Tabout Back Multi"},
-    ["<C-u>"] = {"<C-G>u<C-U>"},
-    ["<C-b>"] = {"<LEFT>"},
-    ["<C-a>"] = {"<esc>I"},
-    ["<C-s>"] = {"<esc><cmd>w<cr>"},
-}, {mode = "i"})
+vim.keymap.set('i', '<A-l>', "<Plug>(TaboutMulti)")
+vim.keymap.set('i', '<A-h>', "<Plug>(TaboutBackMulti)")
+vim.keymap.set('i', '<C-b>', "<Left>")
+vim.keymap.set('i', '<C-f>', "<Right>")
+vim.keymap.set('i', '<C-a>', "<esc>I")
+vim.keymap.set('i', '<C-s>', "<esc><cmd>write<cr>")
+vim.keymap.set('i', '<C-v>', "<C-r>+")
 
-wk.register({
-    ["<C-b>"] = {"<Left>"},
-    ["<C-f>"] = {"<Right>"},
-    ["<C-a>"] = {"<Home>"},
-    ["<C-e>"] = {"<End>"},
-    ["<C-d>"] = {"<Del>"},
-    ["<C-h>"] = {"<BS>"},
-    ["<C-t>"] = {"[[<C-R>=expand('%:p:h') . '/' <CR>]]"},
-}, {mode = "c"})
+vim.keymap.set('c', '<C-f>', "<Right>")
+vim.keymap.set('c', '<C-a>', "<Home>")
+vim.keymap.set('c', '<C-b>', "<Left>")
+vim.keymap.set('c', '<C-e>', "<End>")
+vim.keymap.set('c', '<C-h>', "<BS>")
+vim.keymap.set('c', '<C-d>', "<Del>")
+vim.keymap.set('c', '<C-t>', "<C-R>=expand('%:p:h') . '\\' <CR>")
 
-wk.register({
-    ["J"] = {"<cmd>m '>+1<cr>gv=gv"},
-    ["K"] = {"<cmd>m '>-2<cr>gv=gv"},
-    ["<"] = {"<gv"},
-    [">"] = {">gv"},
-}, {mode = "v"})
+vim.keymap.set('v', 'J', ":m '>+1<cr>gv", {desc = ''})
+vim.keymap.set('v', 'K', ":m '<-2<cr>gv", {desc = ''})
+vim.keymap.set('v', '<', '<gv', {desc = ''})
+vim.keymap.set('v', '>', '>gv', {desc = ''})

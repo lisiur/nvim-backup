@@ -3,7 +3,6 @@ local vim_path = require("core.global").vim_path
 local data_dir = require("core.global").data_dir
 local modules_dir = vim_path .. "/lua/modules"
 local packer_compiled = data_dir .. "lua/_compiled.lua"
-local bak_compiled = data_dir .. "lua/_compiled_backup.lua"
 local packer = nil
 
 local Packer = {}
@@ -41,11 +40,6 @@ function Packer:load_packer()
         compile_path = packer_compiled,
         git = { clone_timeout = 60, default_url_format = "git@github.com:%s" },
         disable_commands = true,
-        display = {
-            open_fn = function()
-                return require("packer.util").float({ border = "none" })
-            end,
-        },
     })
     packer.reset()
     local use = packer.use
@@ -60,7 +54,7 @@ function Packer:init_ensure_plugins()
     local packer_dir = data_dir .. "pack/packer/opt/packer.nvim"
     local state = uv.fs_stat(packer_dir)
     if not state then
-        local cmd = "!git clone git@github.com:wbthomason/packer.nvim.git " .. packer_dir
+        local cmd = "!git clone --depth 1 git@github.com:wbthomason/packer.nvim.git " .. packer_dir
         api.nvim_command(cmd)
         uv.fs_mkdir(data_dir .. "lua", 511, function()
             assert("make compile path dir failed")
@@ -83,19 +77,16 @@ function plugins.ensure_plugins()
     Packer:init_ensure_plugins()
 end
 
-function plugins.back_compile()
-    if vim.fn.filereadable(packer_compiled) == 1 then
-        os.rename(packer_compiled, bak_compiled)
-    end
+function plugins.compile_and_backup()
     plugins.compile()
-    vim.notify("Packer Compile Success!", vim.log.levels.INFO, { title = "Success!" })
+    vim.notify("Packer Compile Success!", vim.log.levels.INFO, { title = "Packer" })
 end
 
 function plugins.auto_compile()
     local file = vim.fn.expand("%:p")
     if file:match(modules_dir) then
         plugins.clean()
-        plugins.back_compile()
+        plugins.compile_and_backup()
     end
 end
 
@@ -105,13 +96,16 @@ function plugins.load_compile()
     else
         assert("Missing packer compile file Run PackerCompile Or PackerInstall to fix")
     end
-    vim.cmd([[command! PackerCompile lua require('core.pack').back_compile()]])
-    vim.cmd([[command! PackerInstall lua require('core.pack').install()]])
-    vim.cmd([[command! PackerUpdate lua require('core.pack').update()]])
-    vim.cmd([[command! PackerSync lua require('core.pack').sync()]])
-    vim.cmd([[command! PackerClean lua require('core.pack').clean()]])
-    vim.cmd([[autocmd User PackerComplete lua require('core.pack').back_compile()]])
-    vim.cmd([[command! PackerStatus lua require('core.pack').compile() require('packer').status()]])
+
+    vim.api.nvim_create_user_command("PackerCompile", plugins.compile_and_backup, {})
+    vim.api.nvim_create_user_command("PackerInstall", plugins.install, {})
+    vim.api.nvim_create_user_command("PackerUpdate", plugins.update, {})
+    vim.api.nvim_create_user_command("PackerSync", plugins.sync, {})
+    vim.api.nvim_create_user_command("PackerClean", plugins.clean, {})
+    vim.api.nvim_create_user_command("PackerStatus", function ()
+        plugins.compile()
+        require('packer').status()
+    end, {})
 end
 
 return plugins
