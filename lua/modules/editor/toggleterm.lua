@@ -58,6 +58,9 @@ function M.toggle_gitui()
             hidden = true,
             float_opts = float_opts,
             start_in_insert = true,
+            env = {
+                TERM_NAME = "gitui"
+            },
         }), "float")
     end
     toggle_term(name)
@@ -72,6 +75,9 @@ function M.toggle_float(name)
             hidden = true,
             start_in_insert = true,
             float_opts = float_opts,
+            env = {
+                TERM_NAME = name
+            },
         }), "float")
     end
     -- 打开前关闭所有其他浮动 Terminal
@@ -93,6 +99,9 @@ function M.toggle_vertical(name)
             dir = root_dir,
             hidden = true,
             start_in_insert = true,
+            env = {
+                TERM_NAME = name
+            },
         }), "vertical")
     end
     -- 打开前关闭所有其他 horizontal Terminal
@@ -114,6 +123,9 @@ function M.toggle_horizontal(name)
             dir = root_dir,
             hidden = true,
             start_in_insert = true,
+            env = {
+                TERM_NAME = name
+            },
         }), "horizontal")
     end
     -- 打开前关闭所有其他 vertical Terminal

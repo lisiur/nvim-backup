@@ -41,5 +41,7 @@ config.python_host_prog = options:new():mac("/usr/bin/python"):linux("/usr/bin/p
 config.python3_host_prog = options:new():mac("/usr/local/bin/python3"):linux("/usr/local/bin/python3"):windows("python")
     .value
 config.sqlite_clib_path = options:new():mac(""):linux(""):windows("C:\\Users\\lisiu\\.local\\bin\\sqlite3.dll").value
+config.org_agenda_files = {"C:\\Users\\lisiu\\Nutstore\\1\\org\\**\\*"}
+config.default_notes_file = "C:\\Users\\lisiu\\Nutstore\\1\\org\\refile.org"
 
 return config

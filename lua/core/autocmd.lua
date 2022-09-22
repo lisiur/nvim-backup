@@ -11,11 +11,11 @@ vim.api.nvim_create_autocmd("User", {
     end
 })
 
-vim.api.nvim_create_augroup("_packer", { clear = true})
-vim.api.nvim_create_autocmd("BufWritePost", {
-    group = "_packer",
-    pattern = {"plugins.lua", "config.lua"},
-    callback = function ()
-        vim.cmd "PackerCompile"
-    end
-})
+-- vim.api.nvim_create_augroup("_packer", { clear = true})
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--     group = "_packer",
+--     pattern = {"plugins.lua", "config.lua"},
+--     callback = function ()
+--         vim.cmd "PackerCompile"
+--     end
+-- })

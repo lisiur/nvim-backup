@@ -22,7 +22,6 @@ capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 local function custom_attach(client, bufnr)
     require("lsp_signature").on_attach({
         bind = true,
-        use_lspsaga = false,
         floating_window = true,
         fix_pos = true,
         hint_enable = false,

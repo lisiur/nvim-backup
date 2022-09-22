@@ -77,7 +77,7 @@ wk.register({
         l = { "<cmd>LSoutlineToggle<cr>", "Toggle Outline" },
         ["]"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "Go Next Diagnostic" },
         ["["] = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "Go Prev Diagnostic" },
-        s = { "<cmd>Lspsaga signature_help<cr>", "Show Signature" },
+        s = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Show Signature" },
         re = { "<cmd>Lspsaga rename<cr>", "Rename" },
         k = { "<cmd>Lspsaga hover_doc<cr>", "Show Doc" },
         ["."] = { "<cmd>Lspsaga code_action<cr>", "Code Action" },
@@ -92,7 +92,6 @@ vim.keymap.set('n', 'H', '^', {desc = ''})
 vim.keymap.set('n', 'L', '$', {desc = ''})
 vim.keymap.set('n', 'n', 'nzzzv', {desc = ''})
 vim.keymap.set('n', 'N', 'Nzzzv', {desc = ''})
-vim.keymap.set('n', '<Tab>', 'za', {desc = ''})
 vim.keymap.set('n', '<C-s>', '<cmd>write<cr>', {desc = ''})
 vim.keymap.set('n', '<C-u>', '9k', {desc = ''})
 vim.keymap.set('n', '<C-d>', '9j', {desc = ''})

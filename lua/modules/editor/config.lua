@@ -1,9 +1,11 @@
 local config = {}
+local user_config = require('config')
 local sessions_dir = vim.fn.stdpath("data") .. "/sessions/"
 
 function config.nvim_treesitter()
     vim.api.nvim_set_option_value("foldmethod", "expr", {})
     vim.api.nvim_set_option_value("foldexpr", "nvim_treesitter#foldexpr()", {})
+
 
     require("nvim-treesitter.configs").setup({
         ensure_installed = {
@@ -11,7 +13,10 @@ function config.nvim_treesitter()
             "http",
             "json",
         },
-        highleght = { enable = true, disable = { "vim" } },
+        highlight = {
+            enable = true,
+            disable = { "vim" },
+        },
         textobjects = {
             select = {
                 enable = true,
