@@ -180,8 +180,7 @@ function config.toggleterm()
             vim.api.nvim_set_option_value("foldmethod", "manual", { scope = "local" })
             vim.api.nvim_set_option_value("foldexpr", "0", { scope = "local" })
         end,
-        open_mapping = [[<c-\>]],
-        insert_mappings = true, -- whether or not the open mapping applies in insert mode
+        insert_mappings = [["<C-;>"]], -- whether or not the open mapping applies in insert mode
         hide_numbers = true, -- hide the number column in toggleterm buffers
         shade_filetypes = {},
         shade_terminals = true,

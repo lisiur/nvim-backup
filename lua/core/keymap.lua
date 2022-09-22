@@ -1,5 +1,24 @@
 local wk = require("which-key")
 
+local function set_term_keymap(mode, name)
+    local key = '<A-' .. name .. '>'
+    local cmd = '<cmd>lua require("modules.editor.toggleterm").toggle_'.. mode ..'("' .. name ..'")<cr>'
+    vim.keymap.set('n', key, cmd, {desc = ''})
+    vim.keymap.set('i', key, cmd, {desc = ''})
+    vim.keymap.set('t', key, cmd, {desc = ''})
+end
+local function set_float_term_keymap(name)
+    set_term_keymap('float', name)
+end
+
+local function set_vertical_term_keymap(name)
+    set_term_keymap('vertical', name)
+end
+
+local function set_horizontal_term_keymap(name)
+    set_term_keymap('horizontal', name)
+end
+
 wk.register({
     s = {
         name = "Window",
@@ -71,16 +90,14 @@ wk.register({
 
 vim.keymap.set('n', 'H', '^', {desc = ''})
 vim.keymap.set('n', 'L', '$', {desc = ''})
+vim.keymap.set('n', 'n', 'nzzzv', {desc = ''})
+vim.keymap.set('n', 'N', 'Nzzzv', {desc = ''})
+vim.keymap.set('n', '<Tab>', 'za', {desc = ''})
 vim.keymap.set('n', '<C-s>', '<cmd>write<cr>', {desc = ''})
 vim.keymap.set('n', '<C-u>', '9k', {desc = ''})
 vim.keymap.set('n', '<C-d>', '9j', {desc = ''})
 vim.keymap.set('n', '<C-a>', 'ggVG', {desc = ''})
-vim.keymap.set('n', '<Tab>', 'za', {desc = ''})
-vim.keymap.set('n', 'n', 'nzzzv', {desc = ''})
-vim.keymap.set('n', 'N', 'Nzzzv', {desc = ''})
 
-vim.keymap.set('i', '<A-l>', "<Plug>(TaboutMulti)")
-vim.keymap.set('i', '<A-h>', "<Plug>(TaboutBackMulti)")
 vim.keymap.set('i', '<C-b>', "<Left>")
 vim.keymap.set('i', '<C-f>', "<Right>")
 vim.keymap.set('i', '<C-a>', "<esc>I")
@@ -99,3 +116,28 @@ vim.keymap.set('v', 'J', ":m '>+1<cr>gv", {desc = ''})
 vim.keymap.set('v', 'K', ":m '<-2<cr>gv", {desc = ''})
 vim.keymap.set('v', '<', '<gv', {desc = ''})
 vim.keymap.set('v', '>', '>gv', {desc = ''})
+
+vim.keymap.set('t', '<esc>', '<C-\\><C-N>', {desc = ''})
+vim.keymap.set('t', '<A-h>', '<C-\\><C-N><C-w>h', {desc = ''})
+vim.keymap.set('t', '<A-j>', '<C-\\><C-N><C-w>j', {desc = ''})
+vim.keymap.set('t', '<A-k>', '<C-\\><C-N><C-w>k', {desc = ''})
+vim.keymap.set('t', '<A-l>', '<C-\\><C-N><C-w>l', {desc = ''})
+vim.keymap.set('i', '<A-h>', '<C-\\><C-N><C-w>h', {desc = ''})
+vim.keymap.set('i', '<A-j>', '<C-\\><C-N><C-w>j', {desc = ''})
+vim.keymap.set('i', '<A-k>', '<C-\\><C-N><C-w>k', {desc = ''})
+vim.keymap.set('i', '<A-l>', '<C-\\><C-N><C-w>l', {desc = ''})
+vim.keymap.set('n', '<A-h>', '<C-w>h', {desc = ''})
+vim.keymap.set('n', '<A-j>', '<C-w>j', {desc = ''})
+vim.keymap.set('n', '<A-k>', '<C-w>k', {desc = ''})
+vim.keymap.set('n', '<A-l>', '<C-w>l', {desc = ''})
+
+vim.keymap.set('i', '<A-.>', "<Plug>(TaboutMulti)")
+vim.keymap.set('i', '<A-,>', "<Plug>(TaboutBackMulti)")
+
+set_float_term_keymap("u")
+set_float_term_keymap("i")
+set_float_term_keymap("o")
+set_float_term_keymap("p")
+set_horizontal_term_keymap("m")
+set_vertical_term_keymap(";")
+
