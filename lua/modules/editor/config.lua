@@ -380,4 +380,8 @@ function config.surround()
     require("nvim-surround").setup()
 end
 
+function config.true_zen()
+    require("true-zen").setup()
+end
+
 return config

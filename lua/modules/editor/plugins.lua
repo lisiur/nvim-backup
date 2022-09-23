@@ -123,6 +123,9 @@ editor["kylechui/nvim-surround"] = {
     opt = false,
     config = conf.surround,
 }
+editor["Pocco81/true-zen.nvim"] = {
+    config = conf.true_zen,
+}
 -- only for fcitx5 user who uses non-English language during coding
 -- editor["brglng/vim-im-select"] = {
 -- 	opt = true,

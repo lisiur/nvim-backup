@@ -235,4 +235,41 @@ function config.filetype()
     })
 end
 
+function config.neorg()
+    require('neorg').setup({
+        load = {
+            ["core.defaults"] = {},
+            ["core.norg.dirman"] = {
+                config = {
+                    workspaces = {
+                        work = "C:\\Users\\lisiu\\org\\work",
+                        home = "C:\\Users\\lisiu\\org\\home",
+                        gtd = "C:\\Users\\lisiu\\org\\gtd",
+                    }
+                }
+            },
+            ["core.norg.concealer"] = {},
+            ["core.norg.completion"] = {
+                config = {
+                    engine = "nvim-cmp"
+                }
+            },
+            ["core.gtd.base"] = {
+                config = {
+                    workspace = "gtd"
+                }
+            },
+            ["core.norg.qol.toc"] = {},
+            ["core.export"] = {},
+            ["core.norg.journal"] = {},
+            ["core.presenter"] = {
+                config = {
+                    zen_mode = "truezen"
+                }
+            },
+            ["core.norg.manoeuvre"] = {},
+        }
+    })
+end
+
 return config

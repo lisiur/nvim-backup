@@ -49,4 +49,12 @@ tools["nathom/filetype.nvim"] = {
 tools["folke/which-key.nvim"] = {
 	config = conf.which_key,
 }
+tools["nvim-neorg/neorg"] = {
+    tag = "*",
+    ft = "norg",
+    run = ":Neorg sync-parsers",
+    after = {"nvim-treesitter", "nvim-cmp"},
+    config = conf.neorg,
+}
+tools["wakatime/vim-wakatime"] = {}
 return tools

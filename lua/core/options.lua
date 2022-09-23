@@ -4,6 +4,7 @@ local user_config = require("config")
 local function load_options()
 	local global_local = {
 		termguicolors = true,
+        guicursor= "",
 		mouse = "a",
 		errorbells = true,
 		visualbell = true,

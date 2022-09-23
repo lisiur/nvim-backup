@@ -77,7 +77,7 @@ function plugins.ensure_plugins()
     Packer:init_ensure_plugins()
 end
 
-function plugins.compile_and_backup()
+function plugins.compile_and_notify()
     plugins.compile()
     vim.notify("Packer Compile Success!", vim.log.levels.INFO, { title = "Packer" })
 end
@@ -86,7 +86,7 @@ function plugins.auto_compile()
     local file = vim.fn.expand("%:p")
     if file:match(modules_dir) then
         plugins.clean()
-        plugins.compile_and_backup()
+        plugins.compile_and_notify()
     end
 end
 
@@ -97,7 +97,7 @@ function plugins.load_compile()
         assert("Missing packer compile file Run PackerCompile Or PackerInstall to fix")
     end
 
-    vim.api.nvim_create_user_command("PackerCompile", plugins.compile_and_backup, {})
+    vim.api.nvim_create_user_command("PackerCompile", plugins.compile_and_notify, {})
     vim.api.nvim_create_user_command("PackerInstall", plugins.install, {})
     vim.api.nvim_create_user_command("PackerUpdate", plugins.update, {})
     vim.api.nvim_create_user_command("PackerSync", plugins.sync, {})

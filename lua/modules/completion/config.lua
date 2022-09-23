@@ -264,6 +264,7 @@ function config.cmp()
             { name = "orgmode" },
             { name = "buffer" },
             { name = "latex_symbols" },
+            { name = "neorg" },
             -- { name = "cmp_tabnine" },
         },
     })
