@@ -262,11 +262,11 @@ function config.neorg()
             ["core.norg.qol.toc"] = {},
             ["core.export"] = {},
             ["core.norg.journal"] = {},
-            ["core.presenter"] = {
-                config = {
-                    zen_mode = "truezen"
-                }
-            },
+            -- ["core.presenter"] = {
+            --     config = {
+            --         zen_mode = "truezen"
+            --     }
+            -- },
             ["core.norg.manoeuvre"] = {},
         }
     })
