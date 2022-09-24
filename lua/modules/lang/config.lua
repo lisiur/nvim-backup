@@ -175,4 +175,8 @@ function config.rust_tools()
     require("rust-tools").setup(opts)
 end
 
+function config.flutter_tools()
+    require("flutter-tools").setup({})
+end
+
 return config

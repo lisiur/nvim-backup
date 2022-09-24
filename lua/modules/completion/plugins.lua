@@ -24,7 +24,6 @@ completion["hrsh7th/nvim-cmp"] = {
     config = conf.cmp,
     event = "InsertEnter",
     requires = {
-        { "lukas-reineke/cmp-under-comparator" },
         { "saadparwaiz1/cmp_luasnip", after = "LuaSnip" },
         { "hrsh7th/cmp-nvim-lsp", after = "cmp_luasnip" },
         { "hrsh7th/cmp-nvim-lua", after = "cmp-nvim-lsp" },
@@ -44,7 +43,7 @@ completion["hrsh7th/nvim-cmp"] = {
 completion["L3MON4D3/LuaSnip"] = {
     after = "nvim-cmp",
     config = conf.luasnip,
-    requires = "rafamadriz/friendly-snippets",
+    -- requires = "rafamadriz/friendly-snippets",
 }
 completion["windwp/nvim-autopairs"] = {
     after = "nvim-cmp",

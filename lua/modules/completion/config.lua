@@ -260,8 +260,6 @@ function config.cmp()
             { name = "luasnip" },
             { name = "path" },
             { name = "spell" },
-            { name = "tmux" },
-            { name = "orgmode" },
             { name = "buffer" },
             { name = "latex_symbols" },
             { name = "neorg" },

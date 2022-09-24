@@ -8,10 +8,11 @@ lang["simrat39/rust-tools.nvim"] = {
 	requires = { { "nvim-lua/plenary.nvim", opt = false } },
 }
 
-lang["iamcco/markdown-preview.nvim"] = {
+lang["akinsho/flutter-tools.nvim"] = {
 	opt = true,
-	ft = "markdown",
-	run = "cd app && yarn install",
+	ft = "dart",
+	config = conf.flutter_tools,
+	requires = { { "nvim-lua/plenary.nvim", opt = false } },
 }
 
 return lang

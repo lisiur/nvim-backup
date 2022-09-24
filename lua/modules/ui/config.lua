@@ -86,10 +86,7 @@ function config.catppuccin()
             telescope = true,
             treesitter = true,
             which_key = true,
-            navic = { enabed = true, custom_bg = "NONE" }
-        },
-        highlight_overrides = {
-            latte = {}
+            navic = { enabled = true, custom_bg = "NONE" }
         },
         compile = {
             enabled = true,
@@ -343,7 +340,7 @@ function config.nvim_tree()
         },
         on_attach = function(bufnr)
             local inject_node = require("nvim-tree.utils").inject_node
-            local telescope = require("modules.tools.telescope")
+            local telescope = require("core.commands.telescope")
 
             vim.keymap.set("n", "<leader>s", inject_node(function(node)
                 if node then
@@ -475,8 +472,10 @@ function config.indent_blankline()
             "", -- for all buffers without a file type
         },
         buftype_exclude = { "terminal", "nofile" },
-        show_trailing_blankline_indent = false,
+        space_char_blankline = " ",
         show_current_context = true,
+        show_current_context_start = false,
+        show_trailing_blankline_indent = false,
         context_patterns = {
             "class",
             "function",
@@ -493,7 +492,6 @@ function config.indent_blankline()
             "var",
             "import",
         },
-        space_char_blankline = " ",
     })
     -- because lazy load indent-blankline so need readd this autocmd
     vim.cmd("autocmd CursorMoved * IndentBlanklineRefresh")

@@ -1,5 +1,4 @@
 local config = {}
-local user_config = require('config')
 local sessions_dir = vim.fn.stdpath("data") .. "/sessions/"
 
 function config.nvim_treesitter()
@@ -292,7 +291,7 @@ function config.dap()
     }
 
     dap.configurations.c = dap.configurations.cpp
-    dap.configurations.rust = dap.cojnfigurations.cpp
+    dap.configurations.rust = dap.configurations.cpp
 
     dap.adapters.python = {
         type = "executable",

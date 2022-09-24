@@ -2,7 +2,7 @@ local wk = require("which-key")
 
 local function set_term_keymap(mode, name)
     local key = '<A-' .. name .. '>'
-    local cmd = '<cmd>lua require("modules.editor.toggleterm").toggle_' .. mode .. '("' .. name .. '")<cr>'
+    local cmd = '<cmd>lua require("core.commands.toggleterm").toggle_' .. mode .. '("' .. name .. '")<cr>'
     vim.keymap.set('n', key, cmd, { desc = '' })
     vim.keymap.set('i', key, cmd, { desc = '' })
     vim.keymap.set('t', key, cmd, { desc = '' })
@@ -38,8 +38,8 @@ wk.register({
             p = { "<cmd>lua require('telescope').extensions.project.project{}<cr>", "Select Project" },
             r = { "<cmd>lua require('telescope').extensions.frecency.frecency{}<cr>", "Frecency" },
             e = { "<cmd>Telescope oldfiles<cr>", "OldFiles" },
-            f = { "<cmd>lua require('modules.tools.telescope').find_files_under_project()<cr>", "Select File" },
-            s = { "<cmd>lua require('modules.tools.telescope').search_under_project()<cr>", "Global Search" },
+            f = { "<cmd>lua require('core.commands.telescope').find_files_under_project()<cr>", "Select File" },
+            s = { "<cmd>lua require('core.commands.telescope').search_under_project()<cr>", "Global Search" },
             g = { "<cmd>Telescope git_files<cr>", "Select Git File" },
             z = { "<cmd>Telescope zoxide list<cr>", "Zoxide List" },
         },
@@ -65,18 +65,25 @@ wk.register({
         },
         t = {
             name = "Terminal",
-            t = { "<cmd>lua require('modules.editor.toggleterm').toggle_unname()<cr>)>", "Toggle GitUI" },
-            o = { "<cmd>lua require('modules.editor.toggleterm').toggle_oneshot()<cr>)>", "Toggle GitUI" },
-            g = { "<cmd>lua require('modules.editor.toggleterm').toggle_gitui()<cr>)>", "Toggle GitUI" },
+            t = { "<cmd>lua require('core.commands.toggleterm').toggle_unname()<cr>)>", "Toggle GitUI" },
+            o = { "<cmd>lua require('core.commands.toggleterm').toggle_oneshot()<cr>)>", "Toggle GitUI" },
+            g = { "<cmd>lua require('core.commands.toggleterm').toggle_gitui()<cr>)>", "Toggle GitUI" },
         },
-        g = { "<cmd>lua require('modules.editor.toggleterm').toggle_gitui()<cr>)>", "Toggle GitUI" },
+        g = { "<cmd>lua require('core.commands.toggleterm').toggle_gitui()<cr>)>", "Toggle GitUI" },
         o = {
             name = "Org",
             g = {
                 name = "gtd",
-                n = {"<cmd>Neorg gtd capture<cr>", "New Task"}
+                n = { "<cmd>Neorg gtd capture<cr>", "New Task" }
             },
         },
+        z = {
+            name = "Zen Mode",
+            n = { "<cmd>TZNarrow<cr>", "Narrow a text region for better focus" },
+            f = { "<cmd>TZFocus<cr>", "Foucs the current window" },
+            m = { "<cmd>TZMinimalist<cr>", "Disable ui components" },
+            z = { "<cmd>TZAtaraxis<cr>", "Good ol' zen mode" },
+        }
     },
     g = {
         name = "Go",
@@ -89,11 +96,11 @@ wk.register({
         re = { "<cmd>Lspsaga rename<cr>", "Rename" },
         k = { "<cmd>Lspsaga hover_doc<cr>", "Show Doc" },
         ["."] = { "<cmd>Lspsaga code_action<cr>", "Code Action" },
-        d = { "<cmd>Lspsaga peek_definition<cr>", "Peek Definition" },
-        D = { "<cmd>lua vim.lsp.buf.definition()<cr>", "Peek Definition" },
+        D = { "<cmd>Lspsaga peek_definition<cr>", "Peek Definition" },
+        d = { "<cmd>lua vim.lsp.buf.definition()<cr>", "Peek Definition" },
         m = { "<cmd>TroubleToggle<cr>", "Toggle Trouble" },
         M = { "<cmd>TroubleToggle lsp_references<cr>", "Toggle Trouble References" },
-    }
+    },
 })
 
 vim.keymap.set('n', 'H', '^', { desc = '' })

@@ -80,8 +80,8 @@ local load_core = function()
     -- 设置 leader key
     leader_map()
 
-    -- 确保 packer 已下载
-    pack.ensure_plugins()
+    -- 确保插件已下载
+    pack.ensure_plugins_installed()
 
     -- 配置 neovide
     neovide_config()
@@ -93,7 +93,7 @@ local load_core = function()
     require("core.keymap")
 
     -- 加载插件
-    pack.load_compile()
+    pack.load_plugins()
 
     -- 设置主题色
     vim.cmd("colorscheme " .. user_config.colorscheme)

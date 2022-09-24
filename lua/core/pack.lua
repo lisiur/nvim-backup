@@ -5,31 +5,21 @@ local modules_dir = vim_path .. "/lua/modules"
 local packer_compiled = data_dir .. "lua/_compiled.lua"
 local packer = nil
 
-local Packer = {}
-Packer.__index = Packer
-
-function Packer:load_plugins()
-    self.repos = {}
-
-    local get_plugins_list = function()
-        local list = {}
-        local tmp = vim.split(fn.globpath(modules_dir, "*/plugins.lua"), "\n")
-        for _, f in ipairs(tmp) do
-            list[#list + 1] = f:sub(#modules_dir - 6, -1)
-        end
-        return list
-    end
-
-    local plugins_file = get_plugins_list()
-    for _, m in ipairs(plugins_file) do
-        local repos = require(m:sub(0, #m - 4))
-        for repo, conf in pairs(repos) do
-            self.repos[#self.repos + 1] = vim.tbl_extend("force", { repo }, conf)
+local function peek_plugins()
+    local plugins = {}
+    local tmp = vim.split(fn.globpath(modules_dir, "*/plugins.lua"), "\n")
+    for _, f in ipairs(tmp) do
+        local plugins_full_path = f:sub(#modules_dir - 6, -1)
+        local plugins_path = plugins_full_path:sub(0, #plugins_full_path - 4)
+        local plugins_module = require(plugins_path)
+        for repo, conf in pairs(plugins_module) do
+            plugins[#plugins + 1] = vim.tbl_extend("force", { repo }, conf)
         end
     end
+    return plugins
 end
 
-function Packer:load_packer()
+local function load_packer ()
     if not packer then
         api.nvim_command("packadd packer.nvim")
         packer = require("packer")
@@ -43,14 +33,23 @@ function Packer:load_packer()
     })
     packer.reset()
     local use = packer.use
-    self:load_plugins()
+    local plugins = peek_plugins()
     use({ "wbthomason/packer.nvim", opt = true })
-    for _, repo in ipairs(self.repos) do
-        use(repo)
+    for _, plugin in ipairs(plugins) do
+        use(plugin)
     end
 end
 
-function Packer:init_ensure_plugins()
+local pack = setmetatable({}, {
+    __index = function(_, key)
+        if not packer then
+            load_packer()
+        end
+        return packer[key]
+    end,
+})
+
+function pack.ensure_plugins_installed()
     local packer_dir = data_dir .. "pack/packer/opt/packer.nvim"
     local state = uv.fs_stat(packer_dir)
     if not state then
@@ -59,53 +58,37 @@ function Packer:init_ensure_plugins()
         uv.fs_mkdir(data_dir .. "lua", 511, function()
             assert("make compile path dir failed")
         end)
-        self:load_packer()
+        load_packer()
         packer.install()
     end
 end
 
-local plugins = setmetatable({}, {
-    __index = function(_, key)
-        if not packer then
-            Packer:load_packer()
-        end
-        return packer[key]
-    end,
-})
-
-function plugins.ensure_plugins()
-    Packer:init_ensure_plugins()
+function pack.compile_and_notify()
+    pack.compile()
+    vim.notify("Compiled", vim.log.levels.INFO, { title = "Packer" })
 end
 
-function plugins.compile_and_notify()
-    plugins.compile()
-    vim.notify("Packer Compile Success!", vim.log.levels.INFO, { title = "Packer" })
-end
-
-function plugins.auto_compile()
+function pack.auto_compile()
     local file = vim.fn.expand("%:p")
     if file:match(modules_dir) then
-        plugins.clean()
-        plugins.compile_and_notify()
+        pack.clean()
+        pack.compile_and_notify()
     end
 end
 
-function plugins.load_compile()
+function pack.load_plugins()
     if vim.fn.filereadable(packer_compiled) == 1 then
         require("_compiled")
     else
-        assert("Missing packer compile file Run PackerCompile Or PackerInstall to fix")
+        assert("Missing packer compile file Run PackerCompile Or PackerInstall")
     end
 
-    vim.api.nvim_create_user_command("PackerCompile", plugins.compile_and_notify, {})
-    vim.api.nvim_create_user_command("PackerInstall", plugins.install, {})
-    vim.api.nvim_create_user_command("PackerUpdate", plugins.update, {})
-    vim.api.nvim_create_user_command("PackerSync", plugins.sync, {})
-    vim.api.nvim_create_user_command("PackerClean", plugins.clean, {})
-    vim.api.nvim_create_user_command("PackerStatus", function ()
-        plugins.compile()
-        require('packer').status()
-    end, {})
+    vim.api.nvim_create_user_command("PackerCompile", pack.compile_and_notify, {})
+    vim.api.nvim_create_user_command("PackerInstall", pack.install, {})
+    vim.api.nvim_create_user_command("PackerUpdate", pack.update, {})
+    vim.api.nvim_create_user_command("PackerSync", pack.sync, {})
+    vim.api.nvim_create_user_command("PackerClean", pack.clean, {})
+    vim.api.nvim_create_user_command("PackerStatus", pack.status, {})
 end
 
-return plugins
+return pack
